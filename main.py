@@ -34,6 +34,10 @@ def process_flight_data(file_path):
 
     # 筛选航班属性为国内或国际，航班性质为正班、补班、加班的航班
     df_filtered = df_filtered[(df_filtered['属性'].str.contains('国内|国际|地区')) & (df_filtered['任务'].str.contains('正班|补班|加班|旅包'))]
+    
+    
+    #这种情况为当任务列为"正班|调机"时，对该行进行删除
+    df_filtered = df_filtered[~df_filtered['任务'].str.endswith('调机')]
 
     #只选择出港航班
     #df_filtered = df_filtered[(df_filtered['进出'].isin(['出港']))]
@@ -87,7 +91,10 @@ def process_flight_data(file_path):
                 
         if '国际' in row['属性']:
             df_filtered.loc[index, '机位备注'] = 3
-         
+            
+        #该情况是当航班有“国内|地区”时或“国内|国际”时，需要备注为3
+        if df_filtered.loc[index,'属性'].endswith('国际') or df_filtered.loc[index,'属性'].endswith('地区'):
+            df_filtered.loc[index, '机位备注'] = 3
         
             
         if pd.isna(row['登机口']):
