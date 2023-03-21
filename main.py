@@ -89,6 +89,10 @@ def process_flight_data(file_path):
             else:
                 df_filtered.loc[index, '机位备注'] = 0
                 
+        else: 
+            park_num = int(park_str[:2])
+            df_filtered.loc[index, '机位备注'] = 2        
+                
         if '国际' in row['属性']:
             df_filtered.loc[index, '机位备注'] = 3
             
