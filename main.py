@@ -65,6 +65,17 @@ def process_flight_data(file_path):
             else:
                 # 获取配平备注前两位
                 passenger_num = int(row['配平备注'][:2])
+                
+                #判断两位是否都是数字
+                
+                if passenger_str.isdigit():
+                    
+                    passenger_num = int(passenger_str)        
+                
+                
+                else:
+                    passenger_num = int(row['配平备注'][:1])
+                    
             # 更新旅客人数列
             df_filtered.loc[index, '旅客人数'] = round(passenger_num)
             
