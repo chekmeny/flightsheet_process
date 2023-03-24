@@ -38,6 +38,11 @@ def process_flight_data(file_path):
     
     #这种情况为当任务列为"正班|调机"时，对该行进行删除
     df_filtered = df_filtered[~df_filtered['任务'].str.endswith('调机')]
+    
+    #当出港航班取消时，删除该航班
+    df_filtered['出港异常'].fillna('正常', inplace=True)
+    
+    df_filtered = df_filtered[~df_filtered['出港异常'].str.contains('取消')]
 
     #只选择出港航班
     #df_filtered = df_filtered[(df_filtered['进出'].isin(['出港']))]
