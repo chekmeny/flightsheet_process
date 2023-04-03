@@ -109,8 +109,7 @@ def process_flight_data(file_path):
             park_num = int(park_str[:2])
             df_filtered.loc[index, '机位备注'] = 2        
                 
-        if '国际' in row['属性']:
-            df_filtered.loc[index, '机位备注'] = 3
+      
             
         #该情况是当航班有“国内|地区”时或“国内|国际”时，需要备注为3
         if df_filtered.loc[index,'属性'].endswith('国际') or df_filtered.loc[index,'属性'].endswith('地区'):
