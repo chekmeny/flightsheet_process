@@ -32,8 +32,8 @@ def process_flight_data(file_path):
     # 删除包含'CA'和'ZH'的行
     df_filtered.drop(df_filtered[df_filtered['出港航班号'].str.contains('CA|ZH|SC|CZ')].index, inplace=True)
 
-    # 筛选航班属性为国内或国际，航班性质为正班、补班、加班的航班
-    df_filtered = df_filtered[(df_filtered['属性'].str.contains('国内|国际|地区')) & (df_filtered['任务'].str.contains('正班|补班|加班|旅包'))]
+    # 筛选航班属性为国内或国际，航班性质为正班、补班、加班、备降的航班
+    df_filtered = df_filtered[(df_filtered['属性'].str.contains('国内|国际|地区')) & (df_filtered['任务'].str.contains('正班|补班|加班|旅包|备降'))]
     
     
     #这种情况为当任务列为"正班|调机"时，对该行进行删除
