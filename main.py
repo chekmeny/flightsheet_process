@@ -108,13 +108,8 @@ def process_flight_data(file_path):
         else: 
             park_num = int(park_str[:2])
             df_filtered.loc[index, '机位备注'] = 2        
-                
-      
-            
-        #该情况是当航班有“国内|地区”时或“国内|国际”时，需要备注为3
-        if df_filtered.loc[index,'属性'].endswith('国际') or df_filtered.loc[index,'属性'].endswith('地区'):
-            df_filtered.loc[index, '机位备注'] = 3
-        
+               
+                        
             
         if pd.isna(row['登机口']):
             continue  # 如果配平备注
@@ -141,6 +136,10 @@ def process_flight_data(file_path):
                 
         if gate_num > 10 and gate_num <= 13:
                 df_filtered.loc[index, '机位备注'] = 3
+        
+        #该情况是当航班有“国内|地区”时或“国内|国际”时，需要备注为3
+        if df_filtered.loc[index,'属性'].endswith('国际') or df_filtered.loc[index,'属性'].endswith('地区'):
+            df_filtered.loc[index, '机位备注'] = 3
                 
 
     # 对航班按预计起飞时间进行排序
